@@ -1,0 +1,35 @@
+﻿@model List<ApplicationUser>
+
+<div class="card">
+    <div class="card-header">
+        <h4>App configuration</h4>
+    </div>
+    <div class="card-body">
+
+
+        <table class="table">
+            <tr>
+                <th>Id</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Email</th>
+                <th>Username</th>
+                <th>Actions</th>
+            </tr>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.FirstName</td>
+                    <td>@user.LastName</td>
+                    <td>@user.Email</td>
+                    <td>@user.UserName</td>
+                    <td>
+                        <a asp-controller="Users" asp-action="Details" asp-route-id="@user.Id" class="btn btn-primary">Show</a>
+                        <a asp-controller="Users" asp-action="Edit" asp-route-id="@user.Id" class="btn btn-warning">Edit</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

@@ -1,0 +1,48 @@
+﻿@model ApplicationUser
+
+<hr />
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            @using (Html.BeginForm("Edit", "Users", FormMethod.Post))
+            {
+                @Html.ValidationSummary(true);
+            <table id="tbl" cellpadding="0" cellspacing="0">
+                <tr>
+                    <th colspan="4" align="center">Event</th>
+                </tr>
+                <tr>
+                    <td>Username: </td>
+                    <td>
+                        <input asp-for="UserName" class="form-control m-input" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Email: </td>
+                    <td>
+                        <input asp-for="Email" class="form-control m-input" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Firstname: </td>
+                    <td>
+                        <input asp-for="FirstName" class="form-control m-input" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Lastname: </td>
+                    <td>
+                        <input asp-for="LastName" class="form-control m-input" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </td>
+                </tr>
+
+            </table>
+                <input type="submit" value="Submit" />
+            }
+        </div>
+    </div>
+</div>

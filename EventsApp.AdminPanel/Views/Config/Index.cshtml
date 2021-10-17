@@ -1,0 +1,42 @@
+﻿@model ConfigIndexViewModel
+
+<div class="card">
+    <div class="card-header">
+        <h4>App configuration</h4>
+    </div>
+    <div class="card-body">
+
+
+        <table class="table">
+            <tr>
+                <th>Setting</th>
+                <th>Value (Integer value)</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+            @foreach (ConfigViewModel config in Model.Configs)
+            {
+                <tr>
+                    <td>@config.Setting</td>
+                    <td>@config.Value</td>
+                    <td>@config.Description</td>
+                    <td>
+                        <a asp-controller="Config" asp-action="Details" asp-route-setting="@config.Setting" class="btn btn-primary">Show</a>
+                        <a asp-controller="Config" asp-action="Edit" asp-route-setting="@config.Setting" class="btn btn-warning">Edit</a>
+                    </td>
+                </tr>
+            }
+
+            <form asp-controller="Config" asp-action="Create" method="post">
+                <tr>
+                    <td><input class="form-control" type="text" name="Setting"></td>
+                    <td><input class="form-control" type="text" name="Value"></td>
+                    <td><input class="form-control" type="text" name="Description"></td>
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <td><button class="btn btn-success" type="submit">Add</button></td>
+                </tr>
+            </form>
+
+        </table>
+    </div>
+</div>

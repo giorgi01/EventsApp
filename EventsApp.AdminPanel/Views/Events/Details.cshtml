@@ -1,0 +1,91 @@
+﻿@using Newtonsoft.Json;
+@model EventViewModel
+
+<dt>
+    @Html.DisplayNameFor(model => model.Id)
+</dt>
+<dd>
+    @Html.DisplayFor(model => model.Id)
+</dd>
+<dt>
+    @Html.DisplayNameFor(model => model.Title)
+</dt>
+<dd>
+    @Html.DisplayFor(model => model.Title)
+</dd>
+<dt>
+    @Html.DisplayNameFor(model => model.Description)
+</dt>
+<dd>
+    @Html.DisplayFor(model => model.Description)
+</dd>
+<dt>
+    @Html.DisplayNameFor(model => model.PlannedAt)
+</dt>
+<dd>
+    @Html.DisplayFor(model => model.PlannedAt)
+</dd>
+<dt>
+    @Html.DisplayNameFor(model => model.CreatedAt)
+</dt>
+<dd>
+    @Html.DisplayFor(model => model.CreatedAt)
+</dd>
+<dt>
+    @Html.DisplayNameFor(model => model.Address)
+</dt>
+<dd>
+    @Html.DisplayFor(model => model.Address)
+</dd>
+<dt>
+    @Html.DisplayNameFor(model => model.IsActive)
+</dt>
+<dd>
+    @Html.DisplayFor(model => model.IsActive)
+</dd>
+
+<button id="delete-button" onclick="trigger()" value="@Model.Id" class="btn btn-primary">
+    Delete
+</button>
+
+@if (!Model.IsActive)
+{
+    <button id="publish" class="btn btn-primary">Publish</button>
+}
+
+
+
+<br />
+@Html.ActionLink("Back to List", "Index")
+
+<script type="text/javascript">
+    const button = document.getElementById('publish');
+    if (button != null) {
+            button.addEventListener('click', async (e) => {
+            e.preventDefault();
+            await fetch('/events/publish', {
+                method: 'POST',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(@(Json.Serialize(Model))),
+            });
+            location.reload();
+        });
+    }
+
+
+    const button1 = document.getElementById('delete-button');
+    function trigger() {
+        button1.addEventListener('click', async (e) => {
+            e.preventDefault();
+            await fetch('/events/delete/' + button1.value, {
+                method: 'DELETE'
+            });
+            console.log(button1.value);
+        });
+        button1.click();
+        setTimeout(() => { window.location.href = "/events" }, 2000);
+    }
+</script>

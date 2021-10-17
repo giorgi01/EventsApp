@@ -1,0 +1,40 @@
+﻿@model ConfigViewModel
+
+<hr />
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            @using (Html.BeginForm("Edit", "Config", FormMethod.Post))
+            {
+            <table id="tbl" cellpadding="0" cellspacing="0">
+                <tr>
+                    <th colspan="4" align="center">Event</th>
+                </tr>
+                <tr>
+                    <td>Setting: </td>
+                    <td>
+                        <input asp-for="Setting" class="form-control m-input" />
+                        <span asp-validation-for="Setting" class="text-danger"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Value: </td>
+                    <td>
+                        <input asp-for="Value" class="form-control m-input" />
+                        <span asp-validation-for="Value" class="text-danger"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Description: </td>
+                    <td>
+                        <input asp-for="Description" class="form-control m-input" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </td>
+                </tr>
+
+            </table>
+                <input type="submit" value="Submit" />
+            }
+        </div>
+    </div>
+</div>

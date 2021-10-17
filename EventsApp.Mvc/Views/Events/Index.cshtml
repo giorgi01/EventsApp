@@ -1,0 +1,84 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using X.PagedList.Mvc.Core;
+@inject UserManager<ApplicationUser> _userManager
+@model X.PagedList.IPagedList<EventViewModel>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
+<div class="container">
+    <section class="bg-light py-5" style="border-radius: 15px">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="display-5 font-weight-bold mb-5">Latest events</h2>
+                    <a asp-controller="Events" asp-action="Create" class="btn btn-primary" style="margin-top: -50px">Create new</a>
+                    <br />
+                </div>
+            </div>
+            <div class="row">
+                @foreach (EventViewModel eventVM in Model)
+                {
+                    <div class="col-md-6 col-xl-4">
+                        <div class="image-box image-box--shadowed white-bg style-2 mb-4">
+                            <div class="overlay-container">
+                                <img src="@(eventVM.ImageUrl != null ? eventVM.ImageUrl : "https://via.placeholder.com/330x110/FF0000/000000")" alt="" style="height: 110px; width: 330px">
+                                <a asp-controller="Events" asp-action="Details" asp-route-id="@eventVM.Id" class="overlay-link"></a>
+                            </div>
+                            <div class="body">
+                                <h5 class="font-weight-bold my-2">@eventVM.Title</h5>
+                                <p class="small">Date created: @eventVM.CreatedAt</p>
+                                <p class="small">Date planned: @eventVM.PlannedAt</p>
+                                <p class="small">Address: @eventVM.Address</p>
+                                <p class="small">Author: @eventVM.Author</p>
+
+                                <div class="row d-flex align-items-center">
+                                    <div class="col-6">
+                                        <ul class="social-links small circle">
+                                            <li class="facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                            <li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                            <li class="googleplus"><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                            <li class="instagram"><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-6 text-right">
+                                        <button class="btn-edit-icon">
+                                            <a asp-controller="Events" asp-action="Details" asp-route-id="@eventVM.Id">
+
+                                                <i class="mdi mdi-eye"></i>
+                                            </a>
+                                        </button>
+                                        @if (eventVM.UserId == (await _userManager.GetUserAsync(User))?.Id)
+                                        {
+                                            <button class="btn-edit-icon">
+                                                <a asp-controller="Events" asp-action="Edit" asp-route-id="@eventVM.Id">
+
+                                                    <i class="mdi mdi-pencil"></i>
+                                                </a>
+                                            </button>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <br />
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+            <br />
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+        </div>
+    </section>
+</div>
+
+
+<script type="text/javascript">
+    const button = document.getElementById('delete-button');
+    button.addEventListener('click', async (e) => {
+        e.preventDefault();
+        await fetch('events/delete/' + button.value, {
+            method: 'delete'
+        })
+        console.log(button.value)
+        location.reload();
+    });
+</script>

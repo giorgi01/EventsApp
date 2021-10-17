@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "ArchiveWorker": {
+      "commandName": "Project",
+      "executablePath": " ",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+    }
+  }
+}

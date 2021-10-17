@@ -1,0 +1,51 @@
+﻿@model EventViewModel
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            @using (Html.BeginForm("Create", "Events", FormMethod.Post))
+            {
+<table id="tbl" cellpadding="0" cellspacing="0">
+    <tr>
+        <th colspan="4" align="center">Lecturer</th>
+    </tr>
+    <tr>
+        <td>Title: </td>
+        <td>
+            <input asp-for="Title" class="form-control m-input" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </td>
+    </tr>
+    <tr>
+        <td>Planned at: </td>
+        <td>
+            <input asp-for="PlannedAt" class="form-control m-input" />
+            <span asp-validation-for="PlannedAt" class="text-danger"></span>
+        </td>
+    </tr>
+    <tr>
+        <td>Address: </td>
+        <td>
+            <input asp-for="Address" class="form-control m-input" />
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </td>
+    </tr>
+    <tr>
+        <td>Description: </td>
+        <td>
+            <input asp-for="Description" class="form-control m-input" />
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </td>
+    </tr>
+    <tr>
+        <td>ImageUrl: </td>
+        <td>
+            <input asp-for="ImageUrl" class="form-control m-input" />
+            <span asp-validation-for="ImageUrl" class="text-danger"></span>
+        </td>
+    </tr>
+</table>
+                <input type="submit" value="Submit" />}
+        </div>
+    </div>
+</div>

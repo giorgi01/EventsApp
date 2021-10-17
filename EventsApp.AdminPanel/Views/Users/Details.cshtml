@@ -1,0 +1,51 @@
+﻿@model ApplicationUser
+
+<dt>
+    @Html.DisplayNameFor(model => model.Id)
+</dt>
+<dd>
+    @Html.DisplayFor(model => model.Id)
+</dd>
+<dt>
+    @Html.DisplayNameFor(model => model.Email)
+</dt>
+<dd>
+    @Html.DisplayFor(model => model.Email)
+</dd>
+<dt>
+    @Html.DisplayNameFor(model => model.UserName)
+</dt>
+<dd>
+    @Html.DisplayFor(model => model.UserName)
+</dd>
+<dt>
+    @Html.DisplayNameFor(model => model.FirstName)
+</dt>
+<dd>
+    @Html.DisplayFor(model => model.FirstName)
+</dd>
+<dt>
+    @Html.DisplayNameFor(model => model.LastName)
+</dt>
+<dd>
+    @Html.DisplayFor(model => model.LastName)
+</dd>
+
+<button id="delete-button" onclick="trigger()" value="@Model.Id" class="btn btn-danger">
+    Delete
+</button>
+
+<script type="text/javascript">
+    const button = document.getElementById('delete-button');
+    function trigger() {
+        button.addEventListener('click', async (e) => {
+            e.preventDefault();
+            await fetch('/users/delete/' + button.value, {
+                method: 'delete'
+            });
+            console.log(button.value);
+        });
+        button.click();
+        setTimeout(() => { window.location.href = "/users" }, 2000);
+    }
+</script>
